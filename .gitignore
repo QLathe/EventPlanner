@@ -6,6 +6,8 @@
 ###################
 Migrations
 appsettings.json
+Migrations
+Keys.cs
 *.com
 *.class
 *.dll

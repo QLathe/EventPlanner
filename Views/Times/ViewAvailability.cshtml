@@ -2,11 +2,7 @@
 @{
   ViewData["Title"] = "Dashboard";
 }
-<a href="logout">logout</a>
 <h1>Times Available</h1>
-<p>
-  (your created events, upcoming events you RSVPd to)
-</p>
 
 @{
   int Calstart = (int)ViewBag.StartCal.DayOfWeek;
@@ -35,7 +31,7 @@
         
         @for(var x = 1; x<=Calstart;x++){
           DateTime thisDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month-1,ViewBag.LastMonth-(Calstart-x));
-          <div class ='day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted'>
+          <div class ='day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block'>
           <h5 class="row align-items-center">
               <span class="date col-1">@(ViewBag.LastMonth-(Calstart-x))</span>
             <small class="col d-sm-none text-center text-muted">@thisDay.DayOfWeek</small>
@@ -104,7 +100,7 @@
     } else {
       DateTime thisDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month+1,nextmonth);
       <div
-        class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
+        class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block">
         <h5 class="row align-items-center">
           <span class="date col-1">@nextmonth</span>
           @{nextmonth++;}
@@ -129,32 +125,19 @@
         </div>
     
   }
-  @{
-    <h2>Dates that should say free on calendar</h2>
-    foreach(var time in ViewBag.Me.FreeTimes){
-      <p>@time.StartAt.Date.ToString("MM/dd/yyyy")</p>
 
-    }
-  }
   <form class="col-4 mt-5" asp-action="NewTime" asp-controller="Times" method="post">
     <h2>Add Free Time</h2>
     <div class="row mt-4 align-items-end">
       <div class="col border border-dark p-3">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label" asp-for="StartAt"></label>
+          <label class="col-sm-4 col-form-label" asp-for="StartAt">Date you are free:</label>
           <div class="col-sm-7">
             <span asp-validation-for="StartAt"></span>
-            <input class="form-control" asp-for="StartAt">
+            <input class="form-control" asp-for="StartAt" type="date">
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-sm-4 col-form-label" asp-for="EndAt"></label>
-          <div class="col-sm-7">
-            <span asp-validation-for="EndAt"></span>
-            <input class="form-control" asp-for="EndAt">
-          </div>
-        </div>
-        <button class="row ml-auto mr-3" type="submit">Add to Availability</button>
+        <button class="row ml-auto mr-3 btn btn-primary" type="submit">Add to Availability</button>
       </div>
     </div>
   </form>
